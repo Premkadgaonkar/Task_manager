@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark-950 text-white font-sans antialiased;
+    background: radial-gradient(ellipse at top left, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                #030712;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #00d4ff, #7c3aed);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-white/10 backdrop-blur-xl;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 212, 255, 0.1), inset 0 1px 0 rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+  }
+
+  .neon-button {
+    @apply relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 overflow-hidden;
+    background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  }
+
+  .neon-button:hover {
+    box-shadow: 0 6px 25px rgba(0, 212, 255, 0.5), 0 0 30px rgba(124, 58, 237, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .neon-button:active {
+    transform: translateY(0);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all duration-300;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .input-field:focus {
+    border-color: rgba(0, 212, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-gray-400 cursor-pointer select-none;
+  }
+
+  .nav-item:hover {
+    @apply text-white;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .nav-item.active {
+    @apply text-white;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.05);
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .skeleton {
+    @apply animate-pulse rounded-lg;
+    background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-2 {
+    background: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .neon-glow-blue {
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5), 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.5), 0 0 20px rgba(124, 58, 237, 0.3);
+  }
+
+  .neon-glow-green {
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5), 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .neon-border {
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+
+  .neon-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #00d4ff, #7c3aed, #ec4899);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}

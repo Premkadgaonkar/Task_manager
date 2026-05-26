@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.DS_Store
+*.env
+client
+docker-compose.yml
+walkthrough.md
+implementation_plan.md
+task.md
+.git
