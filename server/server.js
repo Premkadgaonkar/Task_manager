@@ -7,25 +7,26 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const taskRoutes = require('./routes/tasks');
 const errorHandler = require('./middleware/errorHandler');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
-// Debug check (remove later)
-console.log("MONGO_URI:", process.env.MONGO_URI);
 
 // Connect to MongoDB
 connectDB();
 
 const app = express();
+app.use(helmet());
+
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+}));
 
 // CORS Configuration
-app.use(
-  cors({
-    origin: [
-      'http://localhost:5173',
-      'https://your-frontend.onrender.com', // replace with actual frontend URL
-    ],
-    credentials: true,
-  })
-);
+origin: [
+  'http://localhost:5173',
+  'https://task-manager-6jn9.onrender.com/',
+],
 
 // Middleware
 app.use(express.json({ limit: '10kb' }));
@@ -50,6 +51,12 @@ app.get('/api/health', (_req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+app.get('/', (_req, res) => {
+  res.json({
+    success: true,
+    message: 'Task Manager API is running'
+  });
+});
 
 // 404 handler
 app.use((_req, res) => {
@@ -65,8 +72,7 @@ app.use(errorHandler);
 // Port
 const PORT = process.env.PORT || 5000;
 
-// Start server
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
 
